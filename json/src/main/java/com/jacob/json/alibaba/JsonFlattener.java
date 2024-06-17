@@ -1,10 +1,12 @@
+package com.jacob.json.alibaba;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class CompressHashMapTest {
+public class JsonFlattener {
     public static void main(String[] args) {
         String jsonString = "{"
                 + "\"a\": {"
