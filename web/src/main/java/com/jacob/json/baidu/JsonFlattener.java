@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class JsonFlattener {
@@ -16,7 +17,7 @@ public class JsonFlattener {
     }
 
     private static void flattenNode(String prefix, JsonNode node, Map<String, Object> flattened) {
-        var fields = node.fields();
+        Iterator<Map.Entry<String, JsonNode>> fields = node.fields();
         while (fields.hasNext()) {
             Map.Entry<String, JsonNode> field = fields.next();
             String key = prefix.isEmpty() ? field.getKey() : prefix + "." + field.getKey();
