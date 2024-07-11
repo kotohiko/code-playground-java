@@ -2,15 +2,15 @@ package com.jacob.json.kingdee;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import com.jacob.json.utils.FormatJsonUtils;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class JSONArrayAndJSONObject {
 
     public static void main(String[] args) {
-        String strJson = """
+        String bilibiliStrJson = """
                 {
                     "code": 1,
                     "msg": "获取成功",
@@ -34,7 +34,55 @@ public class JSONArrayAndJSONObject {
                     ]
                 }
                 """;
-        Map<String, Object> respParamStruct = new HashMap<>() {{
+        String weatherStrJson = """
+                {
+                  "coord": {
+                    "lon": 10.99,
+                    "lat": 44.34
+                  },
+                  "weather": [
+                    {
+                      "id": 800,
+                      "main": "Clear",
+                      "description": "clear sky",
+                      "icon": "01d"
+                    }
+                  ],
+                  "base": "stations",
+                  "main": {
+                    "temp": 304.74,
+                    "feels_like": 307.71,
+                    "temp_min": 302.27,
+                    "temp_max": 305.42,
+                    "pressure": 1014,
+                    "humidity": 54,
+                    "sea_level": 1014,
+                    "grnd_level": 933
+                  },
+                  "visibility": 10000,
+                  "wind": {
+                    "speed": 1.16,
+                    "deg": 82,
+                    "gust": 2.1
+                  },
+                  "clouds": {
+                    "all": 4
+                  },
+                  "dt": 1720708139,
+                  "sys": {
+                    "type": 2,
+                    "id": 2004688,
+                    "country": "IT",
+                    "sunrise": 1720669357,
+                    "sunset": 1720724407
+                  },
+                  "timezone": 7200,
+                  "id": 3163858,
+                  "name": "Zocca",
+                  "cod": 200
+                }
+                """;
+        Map<String, Object> bilibiliRespParamStruct = new HashMap<>() {{
             put("code", null);
             put("msg", null);
             put("time", null);
@@ -43,10 +91,29 @@ public class JSONArrayAndJSONObject {
                 put("heat", null);
             }});
         }};
-        JSONObject jsonNeedToBeFlattened = JSONObject.parseObject(strJson);
+        Map<String, Object> weatherRespParamStruct = new HashMap<>() {{
+            put("base", null);
+            put("timezone", null);
+            put("id", null);
+            put("coord", new HashMap<>() {{
+                put("lon", null);
+                put("lat", null);
+            }});
+            put("main", new HashMap<>() {{
+                put("temp", null);
+                put("feels_like", null);
+                put("temp_min", null);
+                put("temp_max", null);
+                put("pressure", null);
+                put("humidity", null);
+                put("sea_level", null);
+                put("grnd_level", null);
+            }});
+        }};
+        JSONObject jsonNeedToBeFlattened = JSONObject.parseObject(weatherStrJson);
         JSONObject flattenedJson = new JSONObject();
-        getFlattenedJson(jsonNeedToBeFlattened, flattenedJson, respParamStruct);
-        System.out.println(flattenedJson.toJSONString());
+        getFlattenedJson(jsonNeedToBeFlattened, flattenedJson, weatherRespParamStruct);
+        System.out.println(FormatJsonUtils.formatJsonByGson(flattenedJson.toJSONString()));
     }
 
     /**
@@ -63,11 +130,7 @@ public class JSONArrayAndJSONObject {
                 Object valueOfJsonNeedToBeFlattened = ((JSONObject) jsonNeedToBeFlattened).get(k);
                 if (valueOfJsonNeedToBeFlattened instanceof JSONObject) {
                     Map<String, Object> paramMap = new HashMap<>(16);
-                    if (v == null) {
-                        paramMap.putAll((Map<? extends String, ?>) valueOfJsonNeedToBeFlattened);
-                    } else {
-                        paramMap.putAll((LinkedHashMap) v);
-                    }
+                    paramMap.putAll((Map<? extends String, ?>) valueOfJsonNeedToBeFlattened);
                     // 递归调用
                     getFlattenedJson(valueOfJsonNeedToBeFlattened, flattenedJson, paramMap);
                 } else if (valueOfJsonNeedToBeFlattened instanceof JSONArray) {
