@@ -1,119 +1,61 @@
 package com.jacob.json.kingdee;
 
+import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.jacob.json.utils.FormatJsonUtils;
+import org.yaml.snakeyaml.Yaml;
 
+import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 public class JSONArrayAndJSONObject {
 
+    private static final String OPEN_WEATHER_MAP = "openweathermap";
+
     public static void main(String[] args) {
-        String bilibiliStrJson = """
-                {
-                    "code": 1,
-                    "msg": "获取成功",
-                    "time": "2024-07-10",
-                    "data": [
-                        {
-                            "title": "B站的小伙伴们久等了，我来了！",
-                            "heat": "145.5万",
-                            "link": "https://www.bilibili.com/video/av1106028480/"
-                        },
-                        {
-                            "title": "土松犬，信我，好的一批，好可爱，好喜欢",
-                            "heat": "162.3万",
-                            "link": "https://www.bilibili.com/video/av1506085090/"
-                        },
-                        {
-                            "title": "《崩坏：星穹铁道》翡翠角色PV——「欲望收藏」",
-                            "heat": "192.1万",
-                            "link": "https://www.bilibili.com/video/av1456192687/"
-                        }
-                    ]
-                }
-                """;
-        String weatherStrJson = """
-                {
-                  "coord": {
-                    "lon": 10.99,
-                    "lat": 44.34
-                  },
-                  "weather": [
-                    {
-                      "id": 800,
-                      "main": "Clear",
-                      "description": "clear sky",
-                      "icon": "01d"
-                    }
-                  ],
-                  "base": "stations",
-                  "main": {
-                    "temp": 304.74,
-                    "feels_like": 307.71,
-                    "temp_min": 302.27,
-                    "temp_max": 305.42,
-                    "pressure": 1014,
-                    "humidity": 54,
-                    "sea_level": 1014,
-                    "grnd_level": 933
-                  },
-                  "visibility": 10000,
-                  "wind": {
-                    "speed": 1.16,
-                    "deg": 82,
-                    "gust": 2.1
-                  },
-                  "clouds": {
-                    "all": 4
-                  },
-                  "dt": 1720708139,
-                  "sys": {
-                    "type": 2,
-                    "id": 2004688,
-                    "country": "IT",
-                    "sunrise": 1720669357,
-                    "sunset": 1720724407
-                  },
-                  "timezone": 7200,
-                  "id": 3163858,
-                  "name": "Zocca",
-                  "cod": 200
-                }
-                """;
-        Map<String, Object> bilibiliRespParamStruct = new HashMap<>() {{
-            put("code", null);
-            put("msg", null);
-            put("time", null);
-            put("data", new HashMap<>() {{
-                put("title", null);
-                put("heat", null);
-            }});
-        }};
-        Map<String, Object> weatherRespParamStruct = new HashMap<>() {{
-            put("base", null);
-            put("timezone", null);
-            put("id", null);
-            put("coord", new HashMap<>() {{
-                put("lon", null);
-                put("lat", null);
-            }});
-            put("main", new HashMap<>() {{
-                put("temp", null);
-                put("feels_like", null);
-                put("temp_min", null);
-                put("temp_max", null);
-                put("pressure", null);
-                put("humidity", null);
-                put("sea_level", null);
-                put("grnd_level", null);
-            }});
-        }};
-        JSONObject jsonNeedToBeFlattened = JSONObject.parseObject(weatherStrJson);
-        JSONObject flattenedJson = new JSONObject();
-        getFlattenedJson(jsonNeedToBeFlattened, flattenedJson, weatherRespParamStruct);
-        System.out.println(FormatJsonUtils.formatJsonByGson(flattenedJson.toJSONString()));
+        Yaml yaml = new Yaml();
+        try (FileInputStream fileInput = new FileInputStream("web/src/main/resources/KDIiirsJsonCfgTest.yml")) {
+            // 加载YAML文件到Java对象
+            Map<String, Object> data = yaml.load(fileInput);
+            // 假设我们知道结构，直接访问
+            Map<String, Object> json = (Map<String, Object>) data.get(OPEN_WEATHER_MAP);
+            Map<String, Object> bilibiliRespParamStruct = new HashMap<>() {{
+                put("code", null);
+                put("msg", null);
+                put("time", null);
+                put("data", new HashMap<>() {{
+                    put("title", null);
+                    put("heat", null);
+                }});
+            }};
+            Map<String, Object> weatherRespParamStruct = new HashMap<>() {{
+                put("base", null);
+                put("timezone", null);
+                put("id", null);
+                put("coord", new HashMap<>() {{
+                    put("lon", null);
+                    put("lat", null);
+                }});
+                put("main", new HashMap<>() {{
+                    put("temp", null);
+                    put("feels_like", null);
+                    put("temp_min", null);
+                    put("temp_max", null);
+                    put("pressure", null);
+                    put("humidity", null);
+                    put("sea_level", null);
+                    put("grnd_level", null);
+                }});
+            }};
+            JSONObject jsonNeedToBeFlattened = JSONObject.parseObject(JSON.toJSON(json).toString());
+            JSONObject flattenedJson = new JSONObject();
+            getFlattenedJson(jsonNeedToBeFlattened, flattenedJson, weatherRespParamStruct);
+            System.out.println(FormatJsonUtils.formatJsonByGson(flattenedJson.toJSONString()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
