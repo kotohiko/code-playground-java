@@ -1,4 +1,4 @@
-package com.jacob.json.alibaba;
+package com.jacob.json.flattener.tongyi;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

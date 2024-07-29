@@ -1,9 +1,9 @@
-package com.jacob.json.utils;
+package com.jacob.json.formatter.google.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class FormatJsonUtils {
+public class GsonJsonFormatter {
     public static String formatJsonByGson(String unformattedJson) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.toJson(gson.fromJson(unformattedJson, Object.class));

@@ -1,9 +1,9 @@
-package com.jacob.json.kingdee;
+package com.jacob.json.flattener.kingdeeoffice;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import com.jacob.json.utils.FormatJsonUtils;
+import com.jacob.json.formatter.google.api.GsonJsonFormatter;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
@@ -52,7 +52,7 @@ public class JSONArrayAndJSONObject {
             JSONObject jsonNeedToBeFlattened = JSONObject.parseObject(JSON.toJSON(json).toString());
             JSONObject flattenedJson = new JSONObject();
             getFlattenedJson(jsonNeedToBeFlattened, flattenedJson, weatherRespParamStruct);
-            System.out.println(FormatJsonUtils.formatJsonByGson(flattenedJson.toJSONString()));
+            System.out.println(GsonJsonFormatter.formatJsonByGson(flattenedJson.toJSONString()));
         } catch (Exception e) {
             e.printStackTrace();
         }

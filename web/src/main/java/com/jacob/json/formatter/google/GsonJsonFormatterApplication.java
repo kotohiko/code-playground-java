@@ -1,12 +1,13 @@
-package com.jacob.json;
-
-import com.jacob.json.utils.FormatJsonUtils;
+package com.jacob.json.formatter.google;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class SimpleJsonFormatter {
+/**
+ * 简单 JSON 格式化工具，调用的是 {@link com.google.gson} 包相关 API
+ */
+public class GsonJsonFormatterApplication {
     public static void main(String[] args) throws IOException {
         getInput();
     }
@@ -15,7 +16,7 @@ public class SimpleJsonFormatter {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String line;
         while ((line = in.readLine()) != null) {
-            String ret = FormatJsonUtils.formatJsonByGson(line);
+            String ret = com.jacob.json.formatter.google.api.GsonJsonFormatter.formatJsonByGson(line);
             System.out.println(ret);
         }
     }
