@@ -1,0 +1,7 @@
+/**
+ *
+ * @author Jacob Suen
+ * @since ${HOUR}:${MINUTE} ${MONTH_NAME_SHORT} ${DAY}, ${YEAR}
+ */
+class ${NAME} {
+}
