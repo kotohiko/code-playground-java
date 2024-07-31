@@ -13,6 +13,7 @@ public class SimpleDateFormatEx {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         System.out.println("Construct a Date object directly is like: [" + date + "]");
+        // SimpleDateFormat.format方法原生地支持解析Date对象，所以就格外方便
         System.out.println("After formatted by SimpleDateFormat is like: [" + sdf.format(date) + "]");
     }
 }
