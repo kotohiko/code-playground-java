@@ -11,18 +11,23 @@
     <modules>
         <module>string</module>
         <module>sys</module>
+        <module>exceptions</module>
     </modules>
 
     <properties>
+
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <!-- 版本统一管理 -->
         <json.version>20240303</json.version>
         <jackson-databind.version>2.13.4.2</jackson-databind.version>
         <fastjson2.version>2.0.51</fastjson2.version>
         <gson.version>2.8.9</gson.version>
         <snakeyaml.version>2.2</snakeyaml.version>
+        <slf4j-api.version>2.0.13</slf4j-api.version>
+
     </properties>
 
     <dependencies>
@@ -54,6 +59,12 @@
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>${snakeyaml.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api.version}</version>
         </dependency>
     </dependencies>
 </project>

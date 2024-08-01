@@ -1,4 +1,6 @@
-package com.jacob.id.kingdee;
+package com.jacob.snowflake.kingdee.bos.id;
+
+import com.jacob.snowflake.kingdee.bos.bundle.Resources;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -6,9 +8,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * 金蝶的雪花算法
+ * 金蝶苍穹 bos 库中的雪花算法
  *
- * @author Jacob Suen
+ * @author Kingdee
  * @since 18:56 Jul 31, 2024
  */
 public class IDGenner {
@@ -36,14 +38,15 @@ public class IDGenner {
     private long lastTimestamp;
 
     public IDGenner(int workerId, long tolerantClockBackTimestamp) {
-        this(workerId, tolerantClockBackTimestamp, (String) null);
+        this(workerId, tolerantClockBackTimestamp, null);
     }
 
     public IDGenner(int workerId, long tolerantClockBackTimestamp, String desc) {
         this(workerId, tolerantClockBackTimestamp, 13, 10, "2017-01-01", desc);
     }
 
-    protected IDGenner(int workerId, long tolerantClockBackTimestamp, int workerBits, int sequenceBits, String epochDate, String startupDesc) {
+    protected IDGenner(int workerId, long tolerantClockBackTimestamp, int workerBits, int sequenceBits,
+                       String epochDate, String startupDesc) {
         this.sdf_date = new SimpleDateFormat("yyyy-MM-dd");
         this.sdf_ts = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         this.sequence = 0;
@@ -68,14 +71,16 @@ public class IDGenner {
                 try {
                     this.epoch = this.sdf_date.parse(epochDate).getTime();
                 } catch (ParseException var10) {
-                    throw new IllegalArgumentException(Resources.getString("bos-id", "IDGenner_4", new Object[0]), var10);
+                    throw new IllegalArgumentException(Resources.getString("bos-id", "IDGenner_4"), var10);
                 }
 
                 this.desc = "[" + this + "]epoch:" + this.sdf_date.format(this.epoch);
                 IDServiceLog.debug(this.desc);
             }
         } else {
-            throw new IllegalArgumentException(this.logPrefix() + Resources.getString("bos-id", "IDGenner_0", new Object[0]) + maxWorkerId);
+            throw new IllegalArgumentException(this.logPrefix()
+                    + Resources.getString("bos-id", "IDGenner_0")
+                    + maxWorkerId);
         }
     }
 
@@ -95,9 +100,11 @@ public class IDGenner {
     private long createId(long timestamp) {
         if (IDServiceConf2ZK.isEnableDifferentCluster()) {
             int clusterNumber = IDServiceConf2ZK.getClusterNumber();
-            return timestamp - this.epoch << this.shiftTime | (long) this.workerId << this.shiftWorker + this.clusterNumberBits | (long) clusterNumber << this.shiftWorker | (long) this.sequence;
+            return timestamp - this.epoch << this.shiftTime | (long) this.workerId << this.shiftWorker
+                    + this.clusterNumberBits | (long) clusterNumber << this.shiftWorker | (long) this.sequence;
         } else {
-            return timestamp - this.epoch << this.shiftTime | (long) this.workerId << this.shiftWorker | (long) this.sequence;
+            return timestamp - this.epoch << this.shiftTime | (long) this.workerId << this.shiftWorker
+                    | (long) this.sequence;
         }
     }
 
@@ -134,7 +141,9 @@ public class IDGenner {
             }
 
             if (!fixedByWait) {
-                throw new IllegalStateException(this.logPrefix() + Resources.getString("bos-id", "IDGenner_5", new Object[0]) + offset + Resources.getString("bos-id", "IDGenner_6", new Object[0]) + this.sdf_ts.format(timestamp) + "。");
+                throw new IllegalStateException(this.logPrefix() + Resources.getString("bos-id",
+                        "IDGenner_5", new Object[0]) + offset + Resources.getString("bos-id",
+                        "IDGenner_6", new Object[0]) + this.sdf_ts.format(timestamp) + "。");
             }
         }
 
@@ -172,10 +181,10 @@ public class IDGenner {
     public IDRange getIDRangeOfDay(Date date) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
-        c.set(11, 0);
-        c.set(12, 0);
-        c.set(13, 0);
-        c.set(14, 0);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
         long min;
         if (IDServiceConf2ZK.isEnableDifferentCluster()) {
             int clusterNumber = IDServiceConf2ZK.getClusterNumber();
@@ -184,16 +193,18 @@ public class IDGenner {
             min = c.getTimeInMillis() - this.epoch << this.shiftTime;
         }
 
-        c.set(11, 23);
-        c.set(12, 59);
-        c.set(13, 59);
-        c.set(14, 999);
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        c.set(Calendar.SECOND, 59);
+        c.set(Calendar.MILLISECOND, 999);
         long max;
         if (IDServiceConf2ZK.isEnableDifferentCluster()) {
             int clusterNumber = IDServiceConf2ZK.getClusterNumber();
-            max = c.getTimeInMillis() - this.epoch << this.shiftTime | (long) default_max_worker_id << this.shiftWorker + this.clusterNumberBits | (long) clusterNumber << this.shiftWorker | (long) this.sequenceMask;
+            max = c.getTimeInMillis() - this.epoch << this.shiftTime | (long) default_max_worker_id << this.shiftWorker +
+                    this.clusterNumberBits | (long) clusterNumber << this.shiftWorker | (long) this.sequenceMask;
         } else {
-            max = c.getTimeInMillis() - this.epoch << this.shiftTime | (long) default_max_worker_id << this.shiftWorker | (long) this.sequenceMask;
+            max = c.getTimeInMillis() - this.epoch << this.shiftTime | (long) default_max_worker_id << this.shiftWorker
+                    | (long) this.sequenceMask;
         }
 
         return new IDRange(min, max);
