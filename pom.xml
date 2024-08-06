@@ -12,6 +12,7 @@
         <module>string</module>
         <module>sys</module>
         <module>exceptions</module>
+        <module>threads</module>
     </modules>
 
     <properties>
