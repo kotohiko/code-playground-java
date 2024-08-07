@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>string</module>
+        <module>strings</module>
         <module>sys</module>
         <module>exceptions</module>
         <module>threads</module>
