@@ -1,7 +1,8 @@
-package com.jacob.snowflake.kingdee.bos.lang;
+package kingdee.bos.lang;
 
 
-import com.jacob.snowflake.kingdee.sdk.annotation.SdkPublic;
+import com.jacob.sys.snowflake.kingdee.bos.lang.LangHolder;
+import com.jacob.sys.snowflake.kingdee.sdk.annotation.SdkPublic;
 
 import java.util.HashMap;
 import java.util.Locale;

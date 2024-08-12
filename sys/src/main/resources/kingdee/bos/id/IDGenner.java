@@ -1,6 +1,6 @@
-package com.jacob.snowflake.kingdee.bos.id;
+package kingdee.bos.id;
 
-import com.jacob.snowflake.kingdee.bos.bundle.Resources;
+import com.jacob.sys.snowflake.kingdee.bos.bundle.Resources;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

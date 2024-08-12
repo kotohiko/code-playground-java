@@ -1,4 +1,4 @@
-package com.jacob.snowflake.kingdee.sdk.annotation;
+package kingdee.sdk.annotation;
 
 import java.lang.annotation.*;
 

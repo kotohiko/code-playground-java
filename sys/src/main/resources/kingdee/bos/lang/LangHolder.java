@@ -1,4 +1,4 @@
-package com.jacob.snowflake.kingdee.bos.lang;
+package kingdee.bos.lang;
 
 @FunctionalInterface
 public interface LangHolder {

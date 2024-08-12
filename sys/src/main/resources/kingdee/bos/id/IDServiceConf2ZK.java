@@ -1,6 +1,8 @@
-package com.jacob.snowflake.kingdee.bos.id;
+package kingdee.bos.id;
 
-import com.jacob.snowflake.kingdee.bos.bundle.Resources;
+import com.jacob.sys.snowflake.kingdee.bos.bundle.Resources;
+import com.jacob.sys.snowflake.kingdee.bos.dlock.CrossCluster;
+import com.jacob.sys.snowflake.kingdee.bos.zk.ZKFactory;
 
 /**
  * @author Kingdee
@@ -44,7 +46,6 @@ public class IDServiceConf2ZK {
                         + "IDService.store.zookeeper" + "。");
             }
         }
-
         String zkroot = ZKFactory.getZkRootPath(zookeeper);
         if (rootPath.startsWith("/")) {
             rootPath = zkroot + rootPath.substring(1);

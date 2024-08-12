@@ -1,4 +1,4 @@
-package com.jacob.snowflake.kingdee.bos.id;
+package kingdee.bos.id;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

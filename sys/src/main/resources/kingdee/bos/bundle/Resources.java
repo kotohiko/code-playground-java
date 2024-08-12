@@ -1,7 +1,6 @@
-package com.jacob.snowflake.kingdee.bos.bundle;
+package kingdee.bos.bundle;
 
-import com.jacob.snowflake.kingdee.bos.lang.Lang;
-import com.jacob.snowflake.kingdee.bos.utils.JavaVersion;
+import com.jacob.sys.snowflake.kingdee.bos.lang.Lang;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -34,7 +33,7 @@ public final class Resources {
      */
     @Deprecated
     public static String getString(String project, String key, Object... args) {
-        return getString(Lang.get().getLocale(), project, key, (String) null, args);
+        return getString(Lang.get().getLocale(), project, key, null, args);
     }
 
     public static String get(String project, String key, String desc, Object... args) {
@@ -69,7 +68,7 @@ public final class Resources {
 
             try {
                 s = bundle.getString(key);
-                return JavaVersion.isJava17OrLater()
+                return snowflake.kingdee.bos.utils.JavaVersion.isJava17OrLater()
                         ? format(s, args)
                         : format(new String(s.getBytes("ISO8859-1"), StandardCharsets.UTF_8), args);
             } catch (UnsupportedEncodingException var9) {

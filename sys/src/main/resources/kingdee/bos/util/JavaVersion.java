@@ -1,4 +1,4 @@
-package com.jacob.snowflake.kingdee.bos.utils;
+package kingdee.bos.util;
 
 /**
  * @author Jacob Suen

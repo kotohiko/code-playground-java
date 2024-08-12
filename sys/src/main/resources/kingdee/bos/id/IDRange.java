@@ -1,4 +1,4 @@
-package com.jacob.snowflake.kingdee.bos.id;
+package kingdee.bos.id;
 
 /**
  * @author Kingdee
@@ -9,7 +9,7 @@ public final class IDRange {
     private final long minId;
     private final long maxId;
 
-    IDRange(long minId, long maxId) {
+    public IDRange(long minId, long maxId) {
         this.minId = minId;
         this.maxId = maxId;
     }
