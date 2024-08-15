@@ -13,6 +13,8 @@
         <module>sys</module>
         <module>exceptions</module>
         <module>threads</module>
+        <module>kd-bos</module>
+        <module>web</module>
     </modules>
 
     <properties>
