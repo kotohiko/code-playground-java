@@ -1,6 +1,7 @@
 package kd.bos.id;
 
-import com.jacob.sys.snowflake.kingdee.bos.bundle.Resources;
+
+import kd.bos.bundle.Resources;
 
 /**
  * @author Jacob Suen
@@ -8,9 +9,7 @@ import com.jacob.sys.snowflake.kingdee.bos.bundle.Resources;
  */
 public enum IDClockBackStrategy {
 
-    abandon_then_restart(Resources.getString("bos-id", "IDClockBackStrategy_0", new Object[0])),
-    ignore_then_continue(Resources.getString("bos-id", "IDClockBackStrategy_1", new Object[0])),
-    throw_exception(Resources.getString("bos-id", "IDClockBackStrategy_2", new Object[0]));
+    abandon_then_restart(Resources.getString("bos-id", "IDClockBackStrategy_0", new Object[0])), ignore_then_continue(Resources.getString("bos-id", "IDClockBackStrategy_1", new Object[0])), throw_exception(Resources.getString("bos-id", "IDClockBackStrategy_2", new Object[0]));
 
     private String desc;
 

@@ -1,10 +1,12 @@
 package kd.bos.exception;
 
-import com.jacob.sys.snowflake.kingdee.sdk.annotation.SdkDeprecated;
-import com.jacob.sys.snowflake.kingdee.sdk.annotation.SdkInternal;
-import com.jacob.sys.snowflake.kingdee.sdk.annotation.SdkPublic;
+
+import kd.sdk.annotation.SdkDeprecated;
+import kd.sdk.annotation.SdkInternal;
+import kd.sdk.annotation.SdkPublic;
 
 import java.io.PrintWriter;
+import java.io.Serial;
 import java.io.StringWriter;
 
 /**
@@ -14,6 +16,7 @@ import java.io.StringWriter;
 @SdkPublic
 public class KDException extends RuntimeException {
 
+    @Serial
     private static final long serialVersionUID = -6277095208290718410L;
     private static final Object[] empty_args = new Object[0];
     private static final ErrorCode empty_error_code = new ErrorCode("", "");

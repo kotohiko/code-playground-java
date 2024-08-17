@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  * @author Jacob Suen
- * @since 13:34 8月 12, 2024
+ * @since 13:34 Aug 12, 2024
  */
 @SdkPublic
 public final class ErrorCode implements Serializable {
