@@ -1,4 +1,4 @@
-package com.jacob.json.formatter.google.api;
+package org.jacob.json.formatter.google.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

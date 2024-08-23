@@ -1,4 +1,4 @@
-package com.jacob.url.encode;
+package org.jacob.url.query.encode;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;

@@ -1,4 +1,6 @@
-package com.jacob.json.formatter.google;
+package org.jacob.json.formatter.google;
+
+import org.jacob.json.formatter.google.api.GsonJsonFormatter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +18,7 @@ public class GsonJsonFormatterApplication {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String line;
         while ((line = in.readLine()) != null) {
-            String ret = com.jacob.json.formatter.google.api.GsonJsonFormatter.formatJsonByGson(line);
+            String ret = GsonJsonFormatter.formatJsonByGson(line);
             System.out.println(ret);
         }
     }
