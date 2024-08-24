@@ -3,6 +3,7 @@ package org.jacob.url.parser.service;
 
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
@@ -20,23 +21,20 @@ public class URLParserService {
      * @param urlStr the given URL
      * @return a {@code Map} containing the parsing results
      */
-    public static Map<String, Object> parseURL(String urlStr) {
+    public static Map<String, Object> parseURL(String urlStr) throws MalformedURLException {
         Map<String, Object> parsedComponents = new LinkedHashMap<>();
-        try {
-            var uri = URI.create(urlStr);
-            var url = uri.toURL();
-            parsedComponents.put("protocol", url.getProtocol());
-            parsedComponents.put("host", url.getHost());
-            parsedComponents.put("port", url.getPort() == -1 ? "default" : url.getPort());
-            parsedComponents.put("path", url.getPath());
-            parsedComponents.put("file", url.getFile());
-            parsedComponents.put("ref", url.getRef());
+        var uri = URI.create(urlStr);
+        URL url;
+        url = uri.toURL();
+        parsedComponents.put("protocol", url.getProtocol());
+        parsedComponents.put("host", url.getHost());
+        parsedComponents.put("port", url.getPort() == -1 ? "default" : url.getPort());
+        parsedComponents.put("path", url.getPath());
+        parsedComponents.put("file", url.getFile());
+        parsedComponents.put("ref", url.getRef());
 
-            var queryParameters = parseQuery(url.getQuery());
-            parsedComponents.put("query", queryParameters);
-        } catch (MalformedURLException e) {
-            System.err.println("Invalid URL: " + urlStr);
-        }
+        var queryParameters = parseQuery(url.getQuery());
+        parsedComponents.put("query", queryParameters);
         return parsedComponents;
     }
 

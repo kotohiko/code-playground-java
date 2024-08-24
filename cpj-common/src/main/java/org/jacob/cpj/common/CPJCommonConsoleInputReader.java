@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
  * @author Jacob Suen
  * @since 22:49 Aug 23, 2024
  */
-public class CpjCommonConsoleInputReader {
+public class CPJCommonConsoleInputReader {
     public static BufferedReader consoleReader() {
         return new BufferedReader(new InputStreamReader(System.in));
     }
