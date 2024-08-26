@@ -22,6 +22,7 @@ public class URLParserController {
                     urlStr = consoleInput.readLine();
                     if (urlStr == null || urlStr.trim().isEmpty()) {
                         System.out.println("Input is empty, please enter a valid URL.");
+                        System.out.print("Please enter the url: ");
                         continue;
                     } else if (urlStr.equals("exit")) {
                         break;
