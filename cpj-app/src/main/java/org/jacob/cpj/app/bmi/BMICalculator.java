@@ -3,6 +3,7 @@ package org.jacob.cpj.app.bmi;
 import org.jacob.cpj.common.CPJCommonConsoleInputReader;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 
 /**
  * @author Kotohiko
@@ -12,39 +13,34 @@ public class BMICalculator {
 
     public static void main(String[] args) {
         try (BufferedReader consoleInput = CPJCommonConsoleInputReader.consoleReader()) {
-            String line;
-            // 提示用户输入体重（千克）
-            System.out.print("请输入您的体重（千克）: ");
-            while ((line = consoleInput.readLine()) != null) {
+            String exitCommand = "exit";
+            while (true) {
+                try {
+                    System.out.print("请输入您的体重（千克，输入 'exit' 退出）: ");
+                    String weightInput = consoleInput.readLine();
+                    if (weightInput.equalsIgnoreCase(exitCommand)) {
+                        break;
+                    }
+                    double weight = Double.parseDouble(weightInput);
 
-                line = consoleInput.readLine();
+                    System.out.print("请输入您的身高（米）: ");
+                    double height = Double.parseDouble(consoleInput.readLine());
 
+                    double bmi = calculateBMI(weight, height);
+                    System.out.println("您的BMI值为: " + bmi);
+                    String advice = getHealthAdvice(bmi);
+                    System.out.println(advice);
+                } catch (IOException | NumberFormatException e) {
+                    System.err.println("输入错误，请确保您输入的是有效的数字。");
+                }
             }
-        } catch (Exception e) {
-            System.out.println("发生异常");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-
-        double weight = scanner.nextDouble();
-
-        // 提示用户输入身高（米）
-        System.out.print("请输入您的身高（米）: ");
-        double height = scanner.nextDouble();
-
-        // 计算BMI
-        double bmi = calculateBMI(weight, height);
-
-        // 输出BMI值
-        System.out.println("您的BMI值为: " + bmi);
-
-        // 根据BMI值给出健康建议
-        String advice = getHealthAdvice(bmi);
-        System.out.println(advice);
-
     }
 
     /**
-     * 计算BMI值
+     * 计算 BMI 值
      *
      * @param weight 体重（千克）
      * @param height 身高（米）
@@ -55,7 +51,7 @@ public class BMICalculator {
     }
 
     /**
-     * 根据BMI值给出健康建议
+     * 根据 BMI 值给出健康建议
      *
      * @param bmi BMI值
      * @return 健康建议

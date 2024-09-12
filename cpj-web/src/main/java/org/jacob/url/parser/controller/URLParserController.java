@@ -13,6 +13,7 @@ import java.util.Map;
  * @since 10:44 Aug 24, 2024
  */
 public class URLParserController {
+
     public static void getInput() {
         try (BufferedReader consoleInput = CPJCommonConsoleInputReader.consoleReader()) {
             String urlStr;
