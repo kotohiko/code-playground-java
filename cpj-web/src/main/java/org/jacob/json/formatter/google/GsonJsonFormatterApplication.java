@@ -9,6 +9,7 @@ import java.io.BufferedReader;
  * 简单 JSON 格式化工具，调用的是 {@link com.google.gson} 包相关 API
  */
 public class GsonJsonFormatterApplication {
+
     public static void main(String[] args) {
         getInput();
     }
