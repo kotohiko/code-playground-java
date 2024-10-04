@@ -12,6 +12,7 @@
         <module>cpj-web</module>
         <module>cpj-common</module>
         <module>cpj-app</module>
+        <module>cpj-threads</module>
     </modules>
 
     <properties>
