@@ -14,6 +14,7 @@
         <module>cpj-app</module>
         <module>cpj-threads</module>
         <module>cpj-serial</module>
+        <module>cpj-basics</module>
     </modules>
 
     <properties>
