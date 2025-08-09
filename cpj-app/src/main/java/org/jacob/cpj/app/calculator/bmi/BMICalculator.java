@@ -1,4 +1,4 @@
-package org.jacob.cpj.app.bmi;
+package org.jacob.cpj.app.calculator.bmi;
 
 import org.jacob.cpj.common.CPJCommonConsoleInputReader;
 
